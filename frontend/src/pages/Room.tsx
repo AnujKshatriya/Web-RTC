@@ -5,11 +5,12 @@ import { SocketContext } from "../context/SocketContext";
 const Room = () => {
 
   const {id} = useParams();
-  const {socket} = useContext(SocketContext);
+  const {socket, user} = useContext(SocketContext);
 
   useEffect(()=>{
-    socket.emit("joined-room",{roomId : id})
-  },[])
+    user && console.log("new user has joined room ->",id, "with peer id ->", user._id)
+    if(user) socket.emit("joined-room",{roomId : id, peerId : user._id});
+  },[id,user, socket])
 
   return (
     <div>
