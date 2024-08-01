@@ -1,11 +1,12 @@
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom"
 import { SocketContext } from "../context/SocketContext";
+import UserFeedPlayer from "../components/UserFeedPlayer";
 
 const Room = () => {
 
   const {id} = useParams();
-  const {socket, user} = useContext(SocketContext);
+  const {socket, user, stream} = useContext(SocketContext);
 
   useEffect(()=>{
     user && console.log("new user has joined room ->",id, "with peer id ->", user._id)
@@ -15,6 +16,7 @@ const Room = () => {
   return (
     <div>
       Room : {id}
+      <UserFeedPlayer stream={stream}/>
     </div>
   )
 }

@@ -28,10 +28,14 @@ const roomHandler = (socket : Socket) => {
             });
         }
 
+        socket.on("disconnect",()=>{
+            rooms[roomId] = rooms[roomId].filter((id : string)=> id!==peerId);
+        });
     };
 
     socket.on("create-room", createRoom);
     socket.on("joined-room", joinedRoom);
+
 };
 
 export default roomHandler;
